@@ -29,15 +29,15 @@ const winningCombos = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board = ['', '', '', '', '', '', '', '', '',]
-let turn = 'X';
-let winner = true;
-let tie = true;
+let turn;
+let winner;
+let tie;
 
 /*------------------------ Cached Element References ------------------------*/
 
 const squaredEls = document.querySelectorAll('.sqr')
 const messageEls = document.querySelector('#message')
-const resetBtnEl = document.querySelector('#Reset Button')
+const resetBtnEl = document.querySelector('#reset')
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
@@ -77,7 +77,7 @@ function updateMessage() {
 }
 
 function handleClick(event){
-    console.log("it works")
+    
   const squareIndex = event.target.id;
   console.log(winner);
   placePiece(squareIndex);
@@ -95,7 +95,7 @@ function handleClick(event){
 
 function placePiece (index) {
     board[index] = turn 
-    console.log(board)
+    
 };
 
 function checkForWinner () {
@@ -116,7 +116,7 @@ function checkForWinner () {
 function checkForTie () {
     if (winner = true) {
         return; 
-    } else if (board[index] = "") {
+    } else if (board.includes('')) {
         tie = false
     } else {
         tie = true
@@ -134,12 +134,21 @@ function switchPlayerTurn () {
     }
 };
 
+function init () {
+let board = ['', '', '', '', '', '', '', '', '',]
+let turn = 'X'
+let winner = false;
+let tie = false;
+render()
+};
+
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 squaredEls.forEach(square => {
     square.addEventListener('click', handleClick);
 });
-resetBtnEl.addEventListener('click', init);
+reset.addEventListener('click', init);
 init()
 
 
