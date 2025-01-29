@@ -28,7 +28,7 @@ const winningCombos = [
 ]
 
 /*---------------------------- Variables (state) ----------------------------*/
-let board = ['', '', '', '', '', '', '', '', '',]
+let board;
 let turn;
 let winner;
 let tie;
@@ -41,9 +41,11 @@ const resetBtnEl = document.querySelector('#reset')
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-
-
-    render()
+   board = ["", "", "", "", "", "", "", "", ""]
+   turn = 'X'
+   winner = false;
+   tie = false;
+   render()
 };
 
 
@@ -62,17 +64,19 @@ function updateBoard() {
             squaredEls[index].innerText = 'X'
         } else if (square === 'O') {
             squaredEls[index].innerText = 'O'
+        } else if (square === '') {
+            squaredEls[index].innerText = ''
         }
     })
 }
 
 function updateMessage() {
     if (winner === false && tie === false) {
-        messageEls.innerText = 'it is X turn'
+        messageEls.innerText = `It is ${turn} turn`
     } else if (winner === false && tie === true) {
         messageEls.innerText = 'tie game'
     } else {
-        messageEls.innerText = 'you are the winner'
+        messageEls.innerText = `${turn} is the winner`
     }
 }
 
@@ -80,17 +84,18 @@ function handleClick(event){
     
   const squareIndex = event.target.id;
   console.log(winner);
-  placePiece(squareIndex);
-  checkForWinner();
-  checkForTie();
-  switchPlayerTurn();
+
  if (board[squareIndex] === 'X' || board[squareIndex] === 'O') {
     return
   }
   if (winner === true){
     return
   } 
-
+  placePiece(squareIndex);
+  checkForWinner();
+  checkForTie();
+  switchPlayerTurn();
+  render()
 };
 
 function placePiece (index) {
@@ -114,7 +119,7 @@ function checkForWinner () {
 };
 
 function checkForTie () {
-    if (winner = true) {
+    if (winner === true) {
         return; 
     } else if (board.includes('')) {
         tie = false
@@ -133,15 +138,6 @@ function switchPlayerTurn () {
         turn = 'X';
     }
 };
-
-function init () {
-let board = ['', '', '', '', '', '', '', '', '',]
-let turn = 'X'
-let winner = false;
-let tie = false;
-render()
-};
-
 
 
 /*----------------------------- Event Listeners -----------------------------*/
